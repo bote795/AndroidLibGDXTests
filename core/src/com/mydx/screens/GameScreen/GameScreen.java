@@ -4,6 +4,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.mygdx.GameWorld.GameRenderer;
 import com.mygdx.GameWorld.GameWorld;
+import com.mygdx.zbhelpers.InputHandler;
 
 /**
  * Created by HULK on 3/11/2015.
@@ -21,6 +22,8 @@ public class GameScreen implements Screen{
         int midPointY = (int) (gameHeight / 2);
         world = new GameWorld(midPointY);
         renderer = new GameRenderer(world);
+        Gdx.input.setInputProcessor(new InputHandler(world.getBird()));
+
     }
     @Override
     public void show() {
