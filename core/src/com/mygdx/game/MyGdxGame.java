@@ -64,7 +64,7 @@ public class MyGdxGame extends ApplicationAdapter implements InputProcessor {
 
     @Override
     public boolean touchDown(int screenX, int screenY, int pointer, int button) {
-        if(button == Buttons.LEFT){
+        if(button == Buttons.LEFT){  //in mobile device always be this
             posX = screenX - sprite.getWidth()/2;
             posY = Gdx.graphics.getHeight() - screenY - sprite.getHeight()/2;
         }
@@ -72,7 +72,7 @@ public class MyGdxGame extends ApplicationAdapter implements InputProcessor {
             posX = Gdx.graphics.getWidth()/2 - sprite.getWidth()/2;
             posY = Gdx.graphics.getHeight()/2 - sprite.getHeight()/2;
         }
-        return false;
+        return true;
     }
 
     @Override
