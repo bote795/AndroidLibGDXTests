@@ -2,14 +2,20 @@ package com.mydx.screens.GameScreen;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
-import com.badlogic.gdx.graphics.GL20;
+import com.mygdx.GameWorld.GameRenderer;
+import com.mygdx.GameWorld.GameWorld;
 
 /**
  * Created by HULK on 3/11/2015.
  */
 public class GameScreen implements Screen{
+    private GameWorld world;
+    private GameRenderer renderer;
+
     public GameScreen(){
-        Gdx.app.log("GameSCreen", "Attached");
+        Gdx.app.log("GameScreen", "Attached");
+        world = new GameWorld();
+        renderer = new GameRenderer(world);
     }
     @Override
     public void show() {
@@ -18,10 +24,8 @@ public class GameScreen implements Screen{
 
     @Override
     public void render(float delta) {
-        // Sets a Color to Fill the Screen with (RGB = 10, 15, 230), Opacity of 1 (100%)
-        Gdx.gl.glClearColor(10/255.0f, 15/255.0f, 230/255.0f, 1f);
-        // Fills the screen with the selected color
-        Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+        world.update(delta);
+        renderer.render();
     }
 
     @Override
