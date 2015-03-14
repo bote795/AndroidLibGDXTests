@@ -2,5 +2,5 @@
 
 Flappy bird tutorial
 
-<img src="http://gyazo.com/f9d91ca2e91c5caf7a4c01954ce4ddd8.png">
+<img src="http://gyazo.com/4970a9cc4a6cac428664cf0517807c3b.png">
 
