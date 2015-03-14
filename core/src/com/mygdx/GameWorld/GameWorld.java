@@ -12,7 +12,7 @@ import com.mygdx.zbhelpers.AssetLoader;
 public class GameWorld {
     public enum GameState {
 
-        READY, RUNNING, GAMEOVER
+        READY, RUNNING, GAMEOVER, HIGHSCORE
 
     }
     private GameState currentState;
@@ -39,6 +39,8 @@ public class GameWorld {
                break;
            case RUNNING:
                updateRunning(delta);
+               break;
+           default:
                break;
        }
     }
@@ -67,6 +69,10 @@ public class GameWorld {
             bird.die();
             bird.decelerate();
             currentState = GameState.GAMEOVER;
+            if (score > AssetLoader.getHighScore()) {
+                AssetLoader.setHighScore(score);
+                currentState = GameState.HIGHSCORE;
+            }
         }
     }
 
@@ -79,7 +85,9 @@ public class GameWorld {
     public boolean isGameOver() {
         return currentState == GameState.GAMEOVER;
     }
-
+    public boolean isHighScore() {
+        return currentState == GameState.HIGHSCORE;
+    }
     public void restart() {
         currentState = GameState.READY;
         score = 0;

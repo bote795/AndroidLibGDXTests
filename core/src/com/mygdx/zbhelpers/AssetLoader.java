@@ -7,6 +7,8 @@ import com.badlogic.gdx.graphics.Texture.TextureFilter;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.Preferences;
+
 /**
  * Created by HULK on 3/11/2015.
  */
@@ -24,7 +26,7 @@ public class AssetLoader {
     public static Sound coin;
 
     public static BitmapFont font, shadow;
-
+    public static Preferences prefs;
     public static void load() {
 
         texture = new Texture(Gdx.files.internal("data/texture.png"));
@@ -65,6 +67,14 @@ public class AssetLoader {
         font.setScale(.25f, -.25f);
         shadow = new BitmapFont(Gdx.files.internal("data/shadow.fnt"));
         shadow.setScale(.25f, -.25f);
+
+        // Create (or retrieve existing) preferences file
+        prefs = Gdx.app.getPreferences("ZombieBird");
+
+        // Provide default high score of 0
+        if (!prefs.contains("highScore")) {
+            prefs.putInteger("highScore", 0);
+        }
     }
 
     public static void dispose() {
@@ -75,5 +85,15 @@ public class AssetLoader {
         coin.dispose();
         font.dispose();
         shadow.dispose();
+    }
+    // Receives an integer and maps it to the String highScore in prefs
+    public static void setHighScore(int val) {
+        prefs.putInteger("highScore", val);
+        prefs.flush();
+    }
+
+    // Retrieves the current high score
+    public static int getHighScore() {
+        return prefs.getInteger("highScore");
     }
 }
