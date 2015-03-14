@@ -1,7 +1,9 @@
 package com.mygdx.gameobjects;
 
-import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Circle;
+import com.badlogic.gdx.math.Vector2;
+import com.mygdx.zbhelpers.AssetLoader;
+
 /**
  * Created by HULK on 3/11/2015.
  */
@@ -13,9 +15,11 @@ public class Bird {
     private float rotation; // For handling bird rotation
     private int width;
     private int height;
+    private  boolean isAlive;
 
     //collision
     private Circle boundingCircle;
+
     public Bird(float x, float y, int width, int height) {
         this.width = width;
         this.height = height;
@@ -23,7 +27,7 @@ public class Bird {
         velocity = new Vector2(0, 0);
         acceleration = new Vector2(0, 460);
         boundingCircle = new Circle();
-
+        isAlive = true;
     }
     public void update(float delta) {
 
@@ -50,7 +54,7 @@ public class Bird {
         }
 
         // Rotate clockwise
-        if (isFalling()) {
+        if (isFalling() || !isAlive) {
             rotation += 480 * delta;
             if (rotation > 90) {
                 rotation = 90;
@@ -63,13 +67,27 @@ public class Bird {
     }
 
     public boolean shouldntFlap() {
-        return velocity.y > 70;
+        return velocity.y > 70 || !isAlive;
     }
 
+    public boolean isAlive() {
+        return isAlive;
+    }
     public void onClick() {
-        velocity.y = -140;
+        if (isAlive) {
+            AssetLoader.flap.play();
+            velocity.y = -140;
+        }
+    }
+    public void die() {
+        isAlive = false;
+        velocity.y = 0;
     }
 
+    public void decelerate() {
+        // We want the bird to stop accelerating downwards once it is dead.
+        acceleration.y = 0;
+    }
     public float getX() {
         return position.x;
     }
@@ -89,7 +107,7 @@ public class Bird {
     public float getRotation() {
         return rotation;
     }
-    
+
     public Circle getBoundingCircle() {
         return boundingCircle;
     }
