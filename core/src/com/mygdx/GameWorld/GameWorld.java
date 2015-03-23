@@ -12,7 +12,7 @@ import com.mygdx.zbhelpers.AssetLoader;
 public class GameWorld {
     public enum GameState {
 
-        READY, RUNNING, GAMEOVER, HIGHSCORE
+        MENU, READY, RUNNING, GAMEOVER, HIGHSCORE
 
     }
     private GameState currentState;
@@ -20,32 +20,39 @@ public class GameWorld {
     private ScrollHandler scroller;
     private Rectangle ground;
     private int score=0;
+    private float runTime = 0;
     public int midPointY;
 
     public GameWorld(int midPointY) {
         currentState = GameState.READY;
+        this.midPointY = midPointY;
         bird = new Bird(33, midPointY - 5, 17, 12);
         // The grass should start 66 pixels below the midPointY
         scroller = new ScrollHandler(this, midPointY + 66);
         ground = new Rectangle(0, midPointY + 66, 136, 11);
-        this.midPointY = midPointY;
 
     }
 
     public void update(float delta){
-       switch (currentState){
-           case READY:
-               updateReady(delta);
-               break;
-           case RUNNING:
-               updateRunning(delta);
-               break;
-           default:
-               break;
-       }
+        runTime += delta;
+
+        switch (currentState) {
+            case READY:
+            case MENU:
+                updateReady(delta);
+                break;
+
+            case RUNNING:
+                updateRunning(delta);
+                break;
+            default:
+                break;
+        }
+
     }
     public void updateReady(float delta){
-
+        bird.updateReady(runTime);
+        scroller.updateReady(delta);
     }
     public void updateRunning(float delta){
         // Add a delta cap so that if our game takes too long
@@ -88,6 +95,12 @@ public class GameWorld {
     public boolean isHighScore() {
         return currentState == GameState.HIGHSCORE;
     }
+    public boolean isRunning() {
+        return currentState == GameState.RUNNING;
+    }
+    public boolean isMenu() {
+        return currentState == GameState.MENU;
+    }
     public void restart() {
         currentState = GameState.READY;
         score = 0;
@@ -95,8 +108,14 @@ public class GameWorld {
         scroller.onRestart();
         currentState = GameState.READY;
     }
+    public void ready() {
+        currentState = GameState.READY;
+    }
     public Bird getBird() {
         return bird;
+    }
+    public int getMidPointY() {
+        return midPointY;
     }
     public ScrollHandler getScroller() {
         return scroller;
