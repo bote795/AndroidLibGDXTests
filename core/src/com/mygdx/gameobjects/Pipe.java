@@ -3,11 +3,12 @@ package com.mygdx.gameobjects;
 import com.badlogic.gdx.math.Intersector;
 import com.badlogic.gdx.math.Rectangle;
 
+
 import java.util.Random;
 /**
  * Created by HULK on 3/13/2015.
  */
-public class Pipe extends Scrollable {
+public class Pipe extends Scrollable{
 
     private Random r;
     private Rectangle skullUp, skullDown, barUp, barDown;
