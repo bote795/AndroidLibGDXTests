@@ -3,6 +3,7 @@ package com.mygdx.ui;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Rectangle;
+import com.mygdx.zbhelpers.AssetLoader;
 
 /**
  * Created by HULK on 3/23/2015.
@@ -55,6 +56,7 @@ public class SimpleButton {
         // It only counts as a touchUp if the button is in a pressed state.
         if (bounds.contains(screenX, screenY) && isPressed) {
             isPressed = false;
+            AssetLoader.flap.play();
             return true;
         }
 

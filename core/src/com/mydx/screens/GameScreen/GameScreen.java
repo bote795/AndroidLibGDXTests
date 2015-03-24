@@ -23,13 +23,9 @@ public class GameScreen implements Screen{
         world = new GameWorld(midPointY);
         Gdx.input.setInputProcessor(new InputHandler(world, screenWidth / gameWidth, screenHeight / gameHeight));
         renderer = new GameRenderer(world, (int) gameHeight, midPointY);
+        world.setRenderer(renderer);
 
     }
-    @Override
-    public void show() {
-        Gdx.app.log("GameScreen", "show called");
-    }
-
     @Override
     public void render(float delta) {
         runTime += delta;
@@ -39,26 +35,26 @@ public class GameScreen implements Screen{
 
     @Override
     public void resize(int width, int height) {
-        Gdx.app.log("GameScreen", "resizing");
     }
 
     @Override
-    public void pause() {
-        Gdx.app.log("GameScreen", "pause called");
-    }
-
-    @Override
-    public void resume() {
-        Gdx.app.log("GameScreen", "resume called");
+    public void show() {
     }
 
     @Override
     public void hide() {
-        Gdx.app.log("GameScreen", "hide called");
+    }
+
+    @Override
+    public void pause() {
+    }
+
+    @Override
+    public void resume() {
     }
 
     @Override
     public void dispose() {
-
     }
+
 }

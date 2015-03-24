@@ -48,9 +48,10 @@ public class InputHandler implements InputProcessor {
             playButton.isTouchDown(screenX, screenY);
         } else if (myWorld.isReady()) {
             myWorld.start();
+            myBird.onClick();
+        } else if (myWorld.isRunning()) {
+            myBird.onClick();
         }
-
-        myBird.onClick();
 
         if (myWorld.isGameOver() || myWorld.isHighScore()) {
             myWorld.restart();
